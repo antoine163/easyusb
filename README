@@ -1,0 +1,40 @@
+################################################################################
+#
+# EasyUsb est une mini bibliothèque s'appuyant sur la libusb1.0, elle permet une
+# manipulation basique mais simple de périphérie usb.
+# Voir : http://libusb.org/
+#
+#
+# Auteur : Maleyrie Antoine
+# Début du projet : 26 Août 2011
+# Version actuel : 0.3
+# Site web :
+# Compilateur supporter : GCC
+#
+################################################################################
+
+
+################################################################################
+#
+# Copyright © 2011-2012 - Antoine Maleyrie.
+#
+################################################################################
+
+--- Installation : ---
+Incluez dans votre projet, les fichiers ce trouvant dans le dossier de la
+version binding que vous souhaitez utiliser.
+Vous devez aussi installer la libusb1.0 - http://libusb.org/
+
+--- Utilisation : ---
+Un exemple et donner dans la documentation (voir section suivent).
+Vous devez aussi linker la libusb (-lusb-1.0). 
+
+--- Doxygen : ---
+Les fichiers ont été conçus de sort à générai de la documentation
+automatique grâce au logicielle Doxygen. Vous pouvez générai la
+documentation en appellent doxygen dans les dossiers de binding que vous
+utilisez.
+
+
+
+
