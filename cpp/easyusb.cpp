@@ -5,16 +5,16 @@
 //!
 //! \brief Implémentation pour une utilisation facile de l'usb.
 //!
-//! - Compilateur		: GCC
+//! - Compilateur		: GCC (C++11)
 //!
 //! \author Maleyrie Antoine : antoine.maleyrie@gmail.com
-//! \version 0.2
+//! \version 0.3
 //! \date 26 Août 2011
 //!
 //! ****************************************************************************
 
 /*
-*	Copyright © 2011 - Antoine Maleyrie.
+*	Copyright © 2011-1012 - Antoine Maleyrie.
 */
 
 //_____ I N C L U D E S ________________________________________________________
@@ -25,7 +25,7 @@
 
 //_____ I M P L E M E N T A T I O N S __________________________________________
 
-EasyUsb::EasyUsb() : _ctx(0), _device(0)
+EasyUsb::EasyUsb() : _ctx(nullptr), _device(nullptr)
 {
 	// On construit un contexte pour utiliser l'usb.
 	if(libusb_init(&_ctx) != 0)
@@ -49,7 +49,7 @@ bool EasyUsb::connect(uint16_t vendor_id, uint16_t product_id)
 	//Récupéré le device lier au id.
 	_device = libusb_open_device_with_vid_pid(_ctx, vendor_id, product_id);
 	//Si erreur ou si le device n'a pas été trouver.
-	if(_device == 0)
+	if(_device == nullptr)
 	{
 		std::cerr << "EasyUsb::connect The device is not found or error." << std::endl;
 		return false;
@@ -71,14 +71,14 @@ bool EasyUsb::connect(uint16_t vendor_id, uint16_t product_id)
 void EasyUsb::disconnect(void)
 {
 	//Si il existe un périphérie.
-	if(_device != 0)
+	if(_device != nullptr)
 	{
 		//Reset le périphérie.
 		reset();
 
 		//Met fin au périphérie.
 		libusb_close(_device);
-		_device = 0;
+		_device = nullptr;
 	}
 }
 
@@ -96,7 +96,7 @@ bool EasyUsb::reset(void)
 bool EasyUsb::write(unsigned char data[], int length)
 {
 	//Si il n'existe pas de périphérie.
-	if(_device == 0)
+	if(_device == nullptr)
 	{
 		std::cerr << "EasyUsb::write No device for write." << std::endl;
 		return false;
@@ -138,10 +138,10 @@ bool EasyUsb::write(unsigned char data[], int length)
 	return true;
 }
 
-bool EasyUsb::read(unsigned char data[], int length)
+bool EasyUsb::read(unsigned char data[], int sizeData, int * length)
 {
 	//Si il n'existe pas de périphérie.
-	if(_device == 0)
+	if(_device == nullptr)
 	{
 		std::cerr << "EasyUsb::read No device for read." << std::endl;
 		return false;
@@ -156,11 +156,8 @@ bool EasyUsb::read(unsigned char data[], int length)
 		return false;
 	}
 
-	//Pour vérifier le nombre de donner réellement lue.
-	int transferred = 0;
-
 	//Lecture des données.
-	if(libusb_bulk_transfer(_device, (1|LIBUSB_ENDPOINT_IN), data, length, &transferred, 0) != 0)
+	if(libusb_bulk_transfer(_device, (1|LIBUSB_ENDPOINT_IN), data, *length, &sizeData, 0) != 0)
 	{
 		std::cerr << "EasyUsb::read Error has read the data." << std::endl;
 		return false;
@@ -170,13 +167,6 @@ bool EasyUsb::read(unsigned char data[], int length)
 	if(libusb_release_interface(_device, 1) != 0)
 	{
 		std::cerr << "EasyUsb::read The release has failed." << std::endl;
-		return false;
-	}
-
-	//Vérifier le nombre de donner réellement lue.
-	if(transferred != length)
-	{
-		std::cerr << "EasyUsb::read The data numbers read is invalid." << std::endl;
 		return false;
 	}
 
