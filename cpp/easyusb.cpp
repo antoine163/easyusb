@@ -157,7 +157,7 @@ bool EasyUsb::read(unsigned char data[], int sizeData, int * length)
 	}
 
 	//Lecture des données.
-	if(libusb_bulk_transfer(_device, (1|LIBUSB_ENDPOINT_IN), data, *length, &sizeData, 0) != 0)
+	if(libusb_bulk_transfer(_device, (1|LIBUSB_ENDPOINT_IN), data, sizeData, length, 0) != 0)
 	{
 		std::cerr << "EasyUsb::read Error has read the data." << std::endl;
 		return false;
