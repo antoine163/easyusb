@@ -16,7 +16,7 @@
 //! \addtogroup ipcpp C++
 //! \brief Implementation en C++ de EasyUsb.
 //!
-//! Voici un exemple simple.
+//! Voici un exemple simple:
 //! \code
 //!	#include "easyusb.hpp"
 //!
@@ -41,14 +41,14 @@
 //!     	
 //! 	//...
 //! 
-//! 	//Lecture de 32 données
-//! 	if(!usb.read(bufusb, 32))
+//! 	//Lecture de 32 octets.
+//! 	if(usb.read(bufusb, 32) == -1)
 //! 		return -1;
 //! 		
 //! 	//...
 //! 		
-//! 	//Écriture de 16 données
-//! 	if(!usb.write(bufusb, 16))
+//! 	//Écriture de 16 octets.
+//! 	if(usb.write(bufusb, 16) == -1)
 //! 		return -1;
 //! 		
 //! 	//...
@@ -68,8 +68,10 @@
 
 //! \brief Classe représentent un périphérie usb.
 //!
-//! \note les méthode \ref write() et read() sont des fonction bloquent.
-//! \todo tester avec plusieurs instance et plusieurs périphérie.
+//! \note Les méthode \ref write() et read() sont des fonction bloquent.
+//! \attention Pour le moment, il est déconseiller de crée plusieurs instances de
+//! cette classe pour accéder à plusieurs périphéries.
+//! \todo Tester avec plusieurs instance et plusieurs périphérie.
 class EasyUsb
 {
 	public:
@@ -80,34 +82,33 @@ class EasyUsb
 
 		//! \brief Permet de se connecter un périphérie usb.
 		//!
-		//! \param vendor_id est id du vendeur.
-		//! \param product_id est id du produit.
+		//! \param vendor_id est l'id du vendeur.
+		//! \param product_id est l'id du produit.
 		//! \return true si tout s'est bien passer, sinon false.
 		bool connect(uint16_t vendor_id, uint16_t product_id);
 
 		//! \brief Permet de se déconnecter du périphérie usb.
-		void disconnect(void);
+		void disconnect();
 
 		//! \brief Reset le périphérie.
 		//!
 		//! Utile si la connections a réussit.
 		//! \return true si tout s'est bien passer, sinon false.
-		bool reset(void);
+		bool reset();
 
 		//! \brief Écrie des données ver le périphérie.
 		//!
 		//! \param data les données à écrire.
-		//! \param length le nombre de données.
-		//! \return true si tout s'est bien passer, sinon false.
-		bool write(unsigned char data[], int length);
+		//! \param size le nombre de données à écrire.
+		//! \return -1 si il ces produit un problème, sinon le nombre de données qui a été transmis.
+		int write(unsigned char data[], int size);
 
 		//! \brief Lire des données provenant du périphérie.
 		//!
-		//! \param data les données à lire.
-		//! \param sizeData la taille du buffer data en octet.
-		//! \param length le nombre de données qui a été lue.
-		//! \return true si tout s'est bien passer, sinon false.
-		bool read(unsigned char data[], int sizeData, int *length);
+		//! \param data là ou les données lu serons écrite.
+		//! \param size la taille du buffer data en octet.
+		//! \return -1 si il ces produit un problème, sinon le nombre de données qui a été lue.
+		int read(unsigned char data[], int size);
 
 	private:
 		//Un contexte usb.
