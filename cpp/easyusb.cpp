@@ -1,21 +1,14 @@
-/*Fichier conçu pour la génération de la documentation automatique avec
-* Doxygen.
-*/
 //! \file **********************************************************************
 //!
-//! \brief Implémentation pour une utilisation facile de l'usb.
+//! \brief Implémentation de EasyUsb pour le c++.
 //!
-//! - Compilateur		: GCC (C++11)
+//! - Compilateur		: GCC
 //!
-//! \author Maleyrie Antoine : antoine.maleyrie@gmail.com
+//! \author Maleyrie Antoine
 //! \version 0.3
 //! \date 26 Août 2011
 //!
 //! ****************************************************************************
-
-/*
-*	Copyright © 2011-1012 - Antoine Maleyrie.
-*/
 
 //_____ I N C L U D E S ________________________________________________________
 #include <iostream>
@@ -138,7 +131,7 @@ bool EasyUsb::write(unsigned char data[], int length)
 	return true;
 }
 
-bool EasyUsb::read(unsigned char data[], int sizeData, int * length)
+bool EasyUsb::read(unsigned char data[], int sizeData, int *length)
 {
 	//Si il n'existe pas de périphérie.
 	if(_device == nullptr)
