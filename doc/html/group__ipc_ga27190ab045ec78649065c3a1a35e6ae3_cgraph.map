@@ -1,0 +1,4 @@
+<map id="usb_read" name="usb_read">
+<area shape="rect" id="node2" href="$group__ipc.html#ga9ee2e3b61acaa881fa985763454540c5" title="Permet de se déconnecter du périphérie usb. " alt="" coords="129,5,242,32"/>
+<area shape="rect" id="node3" href="$group__ipc.html#ga3e0d214a4fcf9a60444490736d533295" title="Reset le périphérie. " alt="" coords="291,5,370,32"/>
+</map>

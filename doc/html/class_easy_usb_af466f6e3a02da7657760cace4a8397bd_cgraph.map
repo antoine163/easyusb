@@ -1,0 +1,4 @@
+<map id="EasyUsb::connect" name="EasyUsb::connect">
+<area shape="rect" id="node2" href="$class_easy_usb.html#ad7c48e7e249d85b8df0d7607fa7ab41a" title="Permet de se déconnecter du périphérie usb. " alt="" coords="184,5,331,32"/>
+<area shape="rect" id="node3" href="$class_easy_usb.html#afad6e45fa12489a35932e49477bc7a65" title="Reset le périphérie. " alt="" coords="379,31,493,57"/>
+</map>
