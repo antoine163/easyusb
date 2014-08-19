@@ -77,7 +77,7 @@
 #include <libusb-1.0/libusb.h>
 
 //_____ T Y P E D E F __________________________________________________________
-typedef usb_device libusb_device_handle;
+typedef libusb_device_handle usb_device;
 
 //_____ P R O T O T Y P E S ____________________________________________________
 

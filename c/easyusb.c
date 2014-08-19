@@ -41,7 +41,7 @@ void usb_close()
 usb_device* usb_connect(uint16_t vendor_id, uint16_t product_id)
 {
 	//Récupéré le device lier aux ids.
-	usb_device device* = libusb_open_device_with_vid_pid(_usbctx, vendor_id, product_id);
+	usb_device* device = libusb_open_device_with_vid_pid(_usbctx, vendor_id, product_id);
 	//Si erreur ou si le device n'a pas été trouver.
 	if(device == NULL)
 	{
